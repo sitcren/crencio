@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crêncio Mateus | FullStack Developer</title>
+    <meta name="description"
+        content="Portfolio of Crêncio Mateus, FullStack developer from Mozambique specializing in web and mobile development.">
+    <meta name="author" content="Crêncio Mateus">
+    <meta name="keywords" content="developer,mozambique,fullstack,react native,next.js,mobile">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --brand: #07ac4b;
+            --brand-dark: #059040;
+            --bg-dark: #09100b;
+            --bg-card: #0f1912;
+            --border-dark: #1c2e20;
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #e5e5e5;
+        }
+
+        /* Desktop Navbar */
+        .navbar {
+            background-color: transparent;
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(9, 16, 11, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: -0.025em;
+            color: white !important;
+        }
+
+        .navbar-brand span {
+            color: var(--brand);
+        }
+
+        .nav-link {
+            color: #a0a0a0 !important;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--brand) !important;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--brand);
+            border-radius: 2px;
+        }
+
+        /* Desktop nav - visible */
+        .desktop-nav {
+            display: none;
+        }
+
+        @media (min-width: 992px) {
+            .desktop-nav {
+                display: flex;
+            }
+
+            .menu-btn {
+                display: none !important;
+            }
+        }
+
+        /* Sidebar Navigation - apenas mobile */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 280px;
+            height: 100%;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid var(--border-dark);
+            z-index: 1050;
+            transition: left 0.3s ease;
+            padding: 80px 24px 24px;
+            overflow-y: auto;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1040;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 16px;
+        }
+
+        .sidebar-nav a {
+            color: #a0a0a0;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            display: block;
+            padding: 10px 0;
+            transition: color 0.3s;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            color: var(--brand);
+        }
+
+        .sidebar-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .menu-btn {
+            background: var(--border-dark);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .menu-btn:hover {
+            background: var(--brand);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #0a1a0f 0%, #09100b 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, var(--brand) 0%, transparent 70%);
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(#07ac4b 1px, transparent 1px),
+                linear-gradient(to right, #07ac4b 1px, transparent 1px);
+            background-size: 48px 48px;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        /* Container padding para mobile */
+        .container {
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding-left: 40px !important;
+                padding-right: 40px !important;
+            }
+        }
+
+        /* Badge */
+        .available-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(7, 172, 75, 0.1);
+            border: 1px solid rgba(7, 172, 75, 0.2);
+            color: var(--brand);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--brand);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Typography */
+        .display-name {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        @media (min-width: 768px) {
+            .display-name {
+                font-size: 5rem;
+            }
+        }
+
+        .text-brand {
+            color: var(--brand);
+        }
+
+        /* Profile Image */
+        .profile-wrapper {
+            position: relative;
+            width: 240px;
+            height: 240px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .profile-wrapper {
+                width: 320px;
+                height: 320px;
+            }
+        }
+
+        .profile-ring {
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 2px solid rgba(7, 172, 75, 0.3);
+        }
+
+        .profile-ring-inner {
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 1px solid rgba(7, 172, 75, 0.5);
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: top;
+            border: 2px solid rgba(7, 172, 75, 0.4);
+        }
+
+        .location-badge {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (min-width: 768px) {
+            .location-badge {
+                padding: 8px 16px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Buttons */
+        .btn-primary-custom {
+            background: var(--brand);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .btn-primary-custom {
+                padding: 12px 24px;
+            }
+        }
+
+        .btn-primary-custom:hover {
+            background: var(--brand-dark);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .btn-outline-custom {
+            background: transparent;
+            color: white;
+            border: 1px solid var(--border-dark);
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .btn-outline-custom {
+                padding: 12px 24px;
+            }
+        }
+
+        .btn-outline-custom:hover {
+            border-color: var(--brand);
+            color: var(--brand);
+            transform: translateY(-2px);
+        }
+
+        /* Social Icons */
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: 1px solid var(--border-dark);
+            color: #a0a0a0;
+            transition: all 0.2s;
+        }
+
+        @media (min-width: 768px) {
+            .social-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 12px;
+            }
+        }
+
+        .social-icon:hover {
+            border-color: var(--brand);
+            color: var(--brand);
+            background: rgba(7, 172, 75, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 60px 0;
+        }
+
+        @media (min-width: 768px) {
+            .section {
+                padding: 80px 0;
+            }
+        }
+
+        .section-subtitle {
+            color: var(--brand);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .section-subtitle {
+                font-size: 0.875rem;
+            }
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        @media (min-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Cards */
+        .card-custom {
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s;
+            height: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .card-custom {
+                padding: 24px;
+            }
+        }
+
+        .card-custom:hover {
+            border-color: var(--brand);
+            transform: translateY(-4px);
+        }
+
+        /* Skill Badge */
+        .skill-badge {
+            background: rgba(7, 172, 75, 0.1);
+            color: var(--brand);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        @media (min-width: 768px) {
+            .skill-badge {
+                padding: 6px 14px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Stats Card */
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            border-radius: 14px;
+            padding: 12px;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+
+        @media (min-width: 768px) {
+            .stat-card {
+                padding: 16px;
+            }
+        }
+
+        .stat-card:hover {
+            border-color: var(--brand);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: white;
+            margin: 6px 0 2px;
+        }
+
+        @media (min-width: 768px) {
+            .stat-number {
+                font-size: 2rem;
+                margin: 8px 0 4px;
+            }
+        }
+
+        /* Timeline Zigzag */
+        .timeline-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline-wrapper::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--brand), rgba(7, 172, 75, 0.2));
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .timeline-wrapper::before {
+                display: block;
+            }
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .timeline-item.left {
+            justify-content: flex-start;
+        }
+
+        .timeline-item.right {
+            justify-content: flex-end;
+        }
+
+        .timeline-content {
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            border-radius: 16px;
+            padding: 16px;
+            transition: all 0.3s;
+        }
+
+        @media (min-width: 768px) {
+            .timeline-content {
+                width: 45%;
+            }
+        }
+
+        .timeline-content:hover {
+            border-color: var(--brand);
+            transform: translateX(0) !important;
+        }
+
+        .timeline-item.left .timeline-content:hover {
+            transform: translateX(5px);
+        }
+
+        .timeline-item.right .timeline-content:hover {
+            transform: translateX(-5px);
+        }
+
+        .timeline-dot {
+            display: none;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 14px;
+            background: var(--brand);
+            border-radius: 50%;
+            top: 20px;
+            box-shadow: 0 0 0 4px rgba(7, 172, 75, 0.2);
+            z-index: 2;
+        }
+
+        @media (min-width: 768px) {
+            .timeline-dot {
+                display: block;
+            }
+        }
+
+        /* Project Cards */
+        .project-img-placeholder {
+            height: 160px;
+            background: linear-gradient(135deg, #0a2a1a, #0a1a0f);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .project-img-placeholder {
+                height: 180px;
+                font-size: 3rem;
+            }
+        }
+
+        /* Contact Card */
+        .contact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            border-radius: 14px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        @media (min-width: 768px) {
+            .contact-card {
+                padding: 16px;
+                gap: 16px;
+            }
+        }
+
+        .contact-card:hover {
+            border-color: var(--brand);
+            transform: translateY(-2px);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(7, 172, 75, 0.1);
+            color: var(--brand);
+        }
+
+        @media (min-width: 768px) {
+            .contact-icon {
+                width: 44px;
+                height: 44px;
+                border-radius: 12px;
+            }
+        }
+
+        /* Form */
+        .form-control-custom {
+            background: rgba(9, 16, 11, 0.5);
+            border: 1px solid var(--border-dark);
+            border-radius: 12px;
+            padding: 10px 14px;
+            color: white;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        @media (min-width: 768px) {
+            .form-control-custom {
+                padding: 12px 16px;
+            }
+        }
+
+        .form-control-custom:focus {
+            outline: none;
+            border-color: var(--brand);
+            box-shadow: 0 0 0 3px rgba(7, 172, 75, 0.1);
+            background: rgba(9, 16, 11, 0.8);
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: #060d07;
+            border-top: 1px solid var(--border-dark);
+            padding: 40px 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .footer {
+                padding: 48px 0 24px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroll to top */
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--brand);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(7, 172, 75, 0.3);
+            z-index: 1000;
+        }
+
+        @media (min-width: 768px) {
+            .scroll-top {
+                bottom: 24px;
+                right: 24px;
+                width: 44px;
+                height: 44px;
+                border-radius: 12px;
+            }
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-4px);
+            background: var(--brand-dark);
+        }
+
+        /* Category Filter */
+        .filter-btn {
+            padding: 6px 16px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            color: #a0a0a0;
+            transition: all 0.3s;
+        }
+
+        @media (min-width: 768px) {
+            .filter-btn {
+                padding: 8px 20px;
+                font-size: 0.875rem;
+                border-radius: 12px;
+            }
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--brand);
+            color: white;
+            border-color: var(--brand);
+        }
+
+        .tab-btn {
+            padding: 8px 20px;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar Overlay (apenas mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation (apenas mobile) -->
+    <div class="sidebar" id="sidebar">
+        <button class="sidebar-close" id="closeSidebar">&times;</button>
+        <ul class="sidebar-nav">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#qualifications">Qualifications</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Navbar Desktop -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#"><span>C</span>rencioMS</a>
+
+            <!-- Desktop Navigation -->
+            <div class="desktop-nav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#qualifications">Qualifications</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#work">Work</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-6 order-lg-1 order-2">
+                    <div class="available-badge mb-3 mb-md-4">
+                        <span class="pulse-dot"></span>
+                        Available for projects
+                    </div>
+                    <p class="text-secondary mb-1 mb-md-2">Hello, I'm 👋</p>
+                    <h1 class="display-name">Crêncio<br><span class="text-brand">Mateus</span></h1>
+                    <div class="my-2 my-md-3">
+                        <span class="h5 h-md-4" id="typing-text"></span>
+                    </div>
+
+                    <p class="text-secondary mb-3 mb-md-4">
+                        Full Stack Developer specialized in Laravel, PHP, MySQL and modern web technologies.
+                        With over 3 years of experience in software development and 6+ years in graphic design,
+                        audiovisual production and digital marketing, I build scalable web applications,
+                        intuitive user experiences and digital solutions that help businesses grow.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-2 gap-md-3 mb-3 mb-md-4">
+                        <a href="#" class="btn-primary-custom" id="download-cv"><i class="fas fa-download"></i> Download
+                            CV</a>
+                        <a href="#contact" class="btn-outline-custom">Contact Me <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a href="https://github.com/" target="_blank" class="social-icon"><i
+                                class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/" target="_blank" class="social-icon"><i
+                                class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/" target="_blank" class="social-icon"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://api.whatsapp.com/send?phone=258846970987&text=Hello!" target="_blank"
+                            class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-2 order-1 text-center">
+                    <div class="profile-wrapper">
+                        <div class="profile-ring"></div>
+                        <div class="profile-ring-inner"></div>
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%2307ac4b' width='100' height='100'/%3E%3Ctext x='50' y='67' text-anchor='middle' fill='white' font-size='14' font-family='Arial'%3ECM%3C/text%3E%3C/svg%3E"
+                            alt="Crêncio Mateus" class="profile-img">
+                        <div class="location-badge">
+                            <i class="fas fa-map-marker-alt"></i> Maputo, Mozambique
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="text-center mb-4 mb-md-5">
+                <p class="section-subtitle">Get to know me</p>
+                <h2 class="section-title">About Me</h2>
+            </div>
+            <div class="row align-items-center g-4 g-md-5">
+                <div class="col-lg-5 text-center">
+                    <div class="profile-wrapper" style="width: 240px; height: 300px;">
+                        <div class="profile-ring"></div>
+                        <div class="profile-ring-inner"></div>
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 400'%3E%3Crect fill='%231a2a1a' width='300' height='400'/%3E%3Ccircle cx='150' cy='150' r='80' fill='%2307ac4b'/%3E%3Ctext x='150' y='160' text-anchor='middle' fill='white' font-size='40' font-family='Arial'%3ECM%3C/text%3E%3C/svg%3E"
+                            alt="Profile" class="profile-img"
+                            style="border-radius: 24px; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-7">
+
+                    <div class="row g-2 g-md-3 mb-3 mb-md-4">
+                        <div class="col-4">
+                            <div class="stat-card">
+                                <i class="fas fa-award text-brand fs-5 fs-md-4"></i>
+                                <div class="stat-number">3+</div>
+                                <div class="small text-secondary">Years Coding</div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-card">
+                                <i class="fas fa-briefcase text-brand fs-5 fs-md-4"></i>
+                                <div class="stat-number">6+</div>
+                                <div class="small text-secondary">Years Creative</div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-card">
+                                <i class="fas fa-code text-brand fs-5 fs-md-4"></i>
+                                <div class="stat-number">20+</div>
+                                <div class="small text-secondary">Projects</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-secondary mb-2 mb-md-3">
+                        I'm a Full Stack Developer passionate about creating modern, scalable and user-friendly web
+                        applications.
+                        My primary stack includes Laravel, PHP, Bootstrap, MySQL and JavaScript.
+                    </p>
+
+                    <p class="text-secondary mb-3 mb-md-4">
+                        Alongside software development, I have more than 6 years of experience in graphic design,
+                        audiovisual production and digital marketing, which allows me to combine technical expertise
+                        with strong visual and business-oriented thinking.
+                    </p>
+
+                    <a href="#" class="btn-primary-custom" id="download-cv-2"><i class="fas fa-download"></i> Download
+                        CV</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section" style="background: #0a150e;">
+        <div class="container">
+            <div class="text-center mb-4 mb-md-5">
+                <p class="section-subtitle">What I know</p>
+                <h2 class="section-title">Skills</h2>
+            </div>
+            <div class="d-flex flex-wrap gap-2 justify-content-center mb-4">
+                <button class="filter-btn active" data-category="frontend">Frontend</button>
+                <button class="filter-btn" data-category="backend">Backend</button>
+                <button class="filter-btn" data-category="uiux">UI/UX</button>
+                <button class="filter-btn" data-category="creative">Creative</button>
+                <button class="filter-btn" data-category="marketing">Marketing</button>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card-custom">
+                        <h4 class="mb-3 mb-md-4" id="skills-category-title">Frontend</h4>
+                        <div class="row g-2" id="skills-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <div class="text-center mb-4 mb-md-5">
+                <p class="section-subtitle">What I Do</p>
+                <h2 class="section-title">Services</h2>
+            </div>
+
+            <div class="row g-3 g-md-4">
+
+                <!-- Web Development -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card-custom text-center text-lg-start">
+                        <div class="mb-3">
+                            <i class="fas fa-code fa-2x text-brand"></i>
+                        </div>
+
+                        <h5 class="fw-bold mb-2">Web Development</h5>
+
+                        <p class="small text-secondary mb-3">
+                            Modern, responsive and scalable web applications built to solve real business problems.
+                        </p>
+
+                        <ul class="list-unstyled small">
+                            <li class="mb-1"><i class="fas fa-check text-brand me-2"></i>Laravel & PHP</li>
+                            <li class="mb-1"><i class="fas fa-check text-brand me-2"></i>HTML, CSS & JavaScript</li>
+                            <li><i class="fas fa-check text-brand me-2"></i>Bootstrap & MySQL</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Business Systems -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card-custom text-center text-lg-start">
+                        <div class="mb-3">
+                            <i class="fas fa-laptop-code fa-2x text-brand"></i>
+                        </div>
+
+                        <h5 class="fw-bold mb-2">Business Systems</h5>
+
+                        <p class="small text-secondary mb-3">
+                            Custom management systems that automate processes and improve productivity.
+                        </p>
+
+                        <ul class="list-unstyled small">
+                            <li class="mb-1"><i class="fas fa-check text-brand me-2"></i>ERP & CRM</li>
+                            <li class="mb-1"><i class="fas fa-check text-brand me-2"></i>POS Systems</li>
+                            <li><i class="fas fa-check text-brand me-2"></i>School & SaaS Platforms</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- UI/UX & Graphic Design -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card-custom text-center text-lg-start">
+                        <div class="mb-3">
+                            <i class="fas fa-pencil-ruler fa-2x text-brand"></i>
+                        </div>
+
+                        <h5 class="fw-bold mb-2">Design & Branding</h5>
+
+                        <p class="small text-secondary mb-3">
+                            Creating memorable visual identities and engaging digital experiences.
+                        </p>
+
+                        <ul class="list-unstyled small">
+                            <li class="mb-1"><i class="fas fa-check text-brand me-2"></i>UI/UX Design</li>
+                            <li class="mb-1"><i class="fas fa-check text-brand me-2"></i>Graphic Design</li>
+                            <li><i class="fas fa-check text-brand me-2"></i>Brand Identity</li>
+                        </ul>
+                    </div>
+                </div>
+
+            <!-- Creative Services -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card-custom text-center text-lg-start">
+                    <div class="mb-3">
+                        <i class="fas fa-photo-video fa-2x text-brand"></i>
+                    </div>
+
+                    <h5 class="fw-bold mb-2">Creative Media</h5>
+
+                    <p class="small text-secondary mb-3">
+                        Professional visual content designed to strengthen your brand and engage your audience.
+                    </p>
+
+                    <ul class="list-unstyled small">
+                        <li class="mb-1"><i class="fas fa-check text-brand me-2"></i>Video Editing</li>
+                        <li class="mb-1"><i class="fas fa-check text-brand me-2"></i>Adobe Premiere Pro</li>
+                        <li><i class="fas fa-check text-brand me-2"></i>Social Media Content</li>
+                    </ul>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Qualifications Section -->
+    <section id="qualifications" class="section" style="background: #0a150e;">
+        <div class="container">
+            <div class="text-center mb-4 mb-md-5">
+                <p class="section-subtitle">My journey</p>
+                <h2 class="section-title">Qualifications</h2>
+            </div>
+            <div class="d-flex justify-content-center gap-2 gap-md-3 mb-4">
+                <button class="btn tab-btn active" id="exp-tab"><i class="fas fa-briefcase me-2"></i>Experience</button>
+                <button class="btn tab-btn" id="edu-tab"><i class="fas fa-graduation-cap me-2"></i>Education</button>
+            </div>
+            <div class="timeline-wrapper" id="timeline-content"></div>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work" class="section">
+        <div class="container">
+            <div class="text-center mb-4 mb-md-5">
+                <p class="section-subtitle">My recent work</p>
+                <h2 class="section-title">Featured Projects</h2>
+            </div>
+            <div class="d-flex flex-wrap gap-2 justify-content-center mb-4">
+                <button class="filter-btn active" data-project="all">All</button>
+                <!-- <button class="filter-btn" data-project="mobile">Mobile</button> -->
+                <button class="filter-btn" data-project="webpplication">Web Application</button>
+            </div>
+            <div class="row g-3 g-md-4" id="projects-list"></div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section" style="background: #0a150e;">
+        <div class="container">
+            <div class="text-center mb-4 mb-md-5">
+                <p class="section-subtitle">Get in touch</p>
+                <h2 class="section-title">Contact Me</h2>
+            </div>
+            <div class="row justify-content-center g-4">
+                <div class="col-lg-5">
+                    <h4 class="fw-bold mb-2">Let's talk</h4>
+                    <p class="text-secondary mb-4">Have a project in mind? I'm always open to new opportunities.</p>
+                    <a href="mailto:crenciomateus@gmail.com" class="contact-card d-flex mb-3">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="flex-grow-1">
+                            <div class="small text-secondary text-uppercase">Email</div>
+                            <div class="fw-semibold">crenciomateus@gmal.com</div>
+                        </div>
+                        <i class="fas fa-arrow-right text-secondary"></i>
+                    </a>
+                    <a href="https://api.whatsapp.com/send?phone=258846810719&text=Hello!" target="_blank"
+                        class="contact-card d-flex mb-3">
+                        <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                        <div class="flex-grow-1">
+                            <div class="small text-secondary text-uppercase">WhatsApp</div>
+                            <div class="fw-semibold">+258 846-810-719</div>
+                        </div>
+                        <i class="fas fa-arrow-right text-secondary"></i>
+                    </a>
+                </div>
+                <div class="col-lg-5">
+                    <div class="card-custom">
+                        <h5 class="fw-bold mb-4">Send a message</h5>
+                        <form id="contact-form">
+                            <div class="mb-3">
+                                <label class="small text-uppercase text-secondary mb-1">Name</label>
+                                <input type="text" class="form-control-custom" placeholder="Your name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="small text-uppercase text-secondary mb-1">Email</label>
+                                <input type="email" class="form-control-custom" placeholder="your@email.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="small text-uppercase text-secondary mb-1">Message</label>
+                                <textarea rows="4" class="form-control-custom"
+                                    placeholder="Tell me about your project..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary-custom w-100 justify-content-center"><i
+                                    class="fas fa-paper-plane me-2"></i>Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row align-items-center gy-3">
+                <div class="col-md-4 text-center text-md-start">
+                    <div class="fs-4 fw-black"><span class="text-brand">C</span>rencioMS</div>
+                    <div class="small text-secondary mt-1">FullStack & Mobile Developer</div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="#about" class="text-secondary text-decoration-none small">About</a>
+                        <a href="#skills" class="text-secondary text-decoration-none small">Skills</a>
+                        <a href="#services" class="text-secondary text-decoration-none small">Services</a>
+                        <a href="#work" class="text-secondary text-decoration-none small">Work</a>
+                        <a href="#contact" class="text-secondary text-decoration-none small">Contact</a>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center text-md-end">
+                    <div class="d-flex gap-2 justify-content-center justify-content-md-end">
+                        <a href="https://github.com/" target="_blank" class="social-icon"><i
+                                class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/" target="_blank" class="social-icon"><i
+                                class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/" target="_blank" class="social-icon"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://api.whatsapp.com/send?phone=258846970987&text=Hello!" target="_blank"
+                            class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-3 my-md-4" style="border-color: var(--border-dark);">
+            <div class="text-center small text-secondary">
+                © 2026 Crêncio Mateus · Maputo, Mozambique
+            </div>
+        </div>
+    </footer>
+
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Skills Data
+        const skillsData = {
+
+            frontend: {
+                title: "Frontend Development",
+                skills: [
+                    "HTML5",
+                    "CSS3",
+                    "JavaScript",
+                    "React Js",
+                    "Bootstrap",
+                    "TailWind",
+                    "Responsive Design",
+                    "jQuery"
+                ]
+            },
+
+            backend: {
+                title: "Backend Development",
+                skills: [
+                    "Laravel",
+                    "PHP",
+                    "MySQL",
+                    "REST APIs",
+                    "Authentication",
+                    "Database Design"
+                ]
+            },
+
+            uiux: {
+                title: "UI / UX Design",
+                skills: [
+                    "Figma",
+                    "Draw.io",
+                    "Adobe Illustrator",
+                    "Wireframing",
+                    "User Flows",
+                    "Prototyping"
+                ]
+            },
+
+            creative: {
+                title: "Creative & Media",
+                skills: [
+                    "Photoshop",
+                    "Premiere Pro",
+                    "Photography",
+                    "Videography",
+                    "Brand Identity",
+                    "Social Media Design"
+                ]
+            },
+
+            marketing: {
+                title: "Digital Marketing",
+                skills: [
+                    "Content Strategy",
+                    "Social Media Management",
+                    "Copywriting",
+                ]
+            }
+
+        };
+
+        function renderSkills(category) {
+            const data = skillsData[category];
+            document.getElementById('skills-category-title').textContent = data.title;
+            const html = data.skills.map(skill => `
+            <div class="col-md-6">
+                <div class="d-flex justify-content-between align-items-center p-2 rounded" style="background: rgba(7, 172, 75, 0.05); margin-bottom: 8px;">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="pulse-dot" style="width: 6px; height: 6px;"></span>
+                        <span class="fw-semibold">${skill}</span>
+                    </div>
+                    <span class="skill-badge">Advanced</span>
+                </div>
+            </div>
+        `).join('');
+            document.getElementById('skills-list').innerHTML = html;
+        }
+
+        // Projects Data
+        const projectsData = [
+
+            {
+                title: "E-Commerce Platform",
+                category: "Web Application",
+                description: "Modern e-commerce platform designed for online product sales and order management. Features include product catalog management, shopping cart, order tracking, WhatsApp checkout integration, customer accounts, inventory management and responsive design.",
+                image: "assets/images/projects/ecommerce-platform.jpg",
+                tech: [
+                    "Laravel",
+                    "PHP",
+                    "Bootstrap",
+                    "MySQL"
+                ],
+                github: "#",
+                demo: "#",
+                featured: true,
+
+
+            },
+
+
+            {
+                title: "HR Management System",
+                category: "Web Application",
+                description: "Human Resource Management platform for employee records, attendance monitoring, payroll management, leave requests, performance evaluation and administrative reporting.",
+                image: "assets/images/projects/hr-system.jpg",
+                tech: [
+                    "Laravel",
+                    "PHP",
+                    "Bootstrap",
+                    "MySQL"
+                ],
+                github: "#",
+                demo: "#",
+                featured: true
+            },
+
+            {
+                title: "eLearning Platform",
+                category: "Web Application",
+                description: "Online learning platform that enables course management, student enrollment, lesson delivery, assessments, payment integration and progress tracking.",
+                image: "assets/images/projects/elearning.jpg",
+                tech: [
+                    "Laravel",
+                    "PHP",
+                    "Bootstrap",
+                    "MySQL"
+                ],
+                github: "#",
+                demo: "#",
+                featured: true
+            }
+
+        ];
+
+        function renderProjects(filter = 'all') {
+            const filtered = filter === 'all' ? projectsData : projectsData.filter(p => p.category === filter);
+            const html = filtered.map(project => `
+            <div class="col-md-6 col-lg-4">
+                <div class="card-custom">
+                    <div class="project-img-placeholder">
+                        <i class="fas fa-${project.category === 'mobile' ? 'mobile-alt' : 'globe'} fa-3x text-brand"></i>
+                    </div>
+                    ${project.featured ? '<span class="badge mb-2" style="background: var(--brand);">Featured</span>' : ''}
+                    <h5 class="fw-bold mb-2">${project.title}</h5>
+                    <p class="small text-secondary mb-3">${project.description}</p>
+                    <div class="d-flex flex-wrap gap-1">
+                        ${project.tech.map(t => `<span class="skill-badge">${t}</span>`).join('')}
+                    </div>
+                </div>
+            </div>
+        `).join('');
+            document.getElementById('projects-list').innerHTML = html || '<div class="col-12 text-center text-secondary">No projects found.</div>';
+        }
+
+        // Timeline Zigzag Data
+        const experienceData = [
+
+            {
+                title: "Full Stack Developer",
+                company: "TV Sucesso",
+                period: "2024 - Present"
+            },
+
+            {
+                title: "Creator  & Creative Director",
+                company: "Skills Out of Control Agency",
+                period: "2023 - Facilitator"
+            },
+
+            {
+                title: "Graphic Designer & Photographer",
+                company: "Photo Service",
+                period: "2021 - 2022"
+            },
+
+            {
+                title: "Freelance Videographer & Graphic Designer",
+                company: "Muhai Ads, 3 Ideas Innovation, Wanga Media",
+                period: "2020 - 2021"
+            },
+
+            {
+                title: "IT Teacher, Graphic Designer & Photographer",
+                company: "Imagine Skill Coaching & Consulting",
+                period: "2018 - 2020"
+            }
+
+        ];
+
+        const educationData = [
+
+            {
+                title: "Software Development",
+                company: "São Tomás University",
+                period: "2026 - Present"
+            },
+
+            {
+                title: "Web Programming & Computer Support Technician",
+                company: "Institute of Transport and Communications (ITC)",
+                period: "2021 - 2023"
+            },
+
+            {
+                title: "High School Diploma",
+                company: "Força do Povo Secondary School",
+                period: "2020"
+            }
+
+        ];
+
+        function renderTimeline(type = 'experience') {
+            const data = type === 'experience' ? experienceData : educationData;
+            const html = data.map((item, index) => `
+            <div class="timeline-item ${index % 2 === 0 ? 'left' : 'right'}">
+                <div class="timeline-content">
+                    <h6 class="fw-bold mb-1">${item.title}</h6>
+                    <p class="text-brand small fw-semibold mb-1">${item.company}</p>
+                    <div class="small text-secondary"><i class="far fa-calendar-alt me-1"></i>${item.period}</div>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+        `).join('');
+            document.getElementById('timeline-content').innerHTML = html;
+        }
+
+        // Typing Effect
+        const roles = [
+            "Full Stack Developer",
+            "UI/UX Designer",
+            "Digital Creative"
+        ];
+        let roleIndex = 0, charIndex = 0;
+        const typingElement = document.getElementById('typing-text');
+
+        function typeEffect() {
+            if (charIndex < roles[roleIndex].length) {
+                typingElement.innerHTML += roles[roleIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(typeEffect, 100);
+            } else {
+                setTimeout(() => {
+                    let deleteInterval = setInterval(() => {
+                        if (charIndex > 0) {
+                            typingElement.innerHTML = roles[roleIndex].substring(0, charIndex - 1);
+                            charIndex--;
+                        } else {
+                            clearInterval(deleteInterval);
+                            roleIndex = (roleIndex + 1) % roles.length;
+                            typeEffect();
+                        }
+                    }, 50);
+                }, 2000);
+            }
+        }
+        typeEffect();
+
+        // Sidebar Functions (apenas mobile)
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const menuBtn = document.getElementById('menuBtn');
+        const closeSidebar = document.getElementById('closeSidebar');
+
+        function openSidebar() {
+            sidebar.classList.add('open');
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebarFn() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        menuBtn?.addEventListener('click', openSidebar);
+        closeSidebar?.addEventListener('click', closeSidebarFn);
+        overlay?.addEventListener('click', closeSidebarFn);
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const scrollBtn = document.getElementById('scrollTop');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+                scrollBtn.classList.add('show');
+            } else {
+                navbar.classList.remove('scrolled');
+                scrollBtn.classList.remove('show');
+            }
+        });
+
+        // Scroll to top
+        document.getElementById('scrollTop').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Smooth scroll para desktop nav
+        document.querySelectorAll('.desktop-nav .nav-link, .sidebar-nav a, .navbar-brand').forEach(link => {
+            link.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                        closeSidebarFn();
+
+                        // Update active states
+                        document.querySelectorAll('.desktop-nav .nav-link, .sidebar-nav a').forEach(l => l.classList.remove('active'));
+                        this.classList.add('active');
+                    }
+                }
+            });
+        });
+
+        // Tab Styles
+        function updateTabStyles(activeId) {
+            const expTab = document.getElementById('exp-tab');
+            const eduTab = document.getElementById('edu-tab');
+            if (activeId === 'exp-tab') {
+                expTab.style.background = 'var(--brand)';
+                expTab.style.color = 'white';
+                expTab.style.border = 'none';
+                eduTab.style.background = 'var(--bg-card)';
+                eduTab.style.color = '#a0a0a0';
+                eduTab.style.border = '1px solid var(--border-dark)';
+            } else {
+                eduTab.style.background = 'var(--brand)';
+                eduTab.style.color = 'white';
+                eduTab.style.border = 'none';
+                expTab.style.background = 'var(--bg-card)';
+                expTab.style.color = '#a0a0a0';
+                expTab.style.border = '1px solid var(--border-dark)';
+            }
+        }
+
+        // Initialize
+        renderSkills('frontend');
+        renderProjects('all');
+        renderTimeline('experience');
+        updateTabStyles('exp-tab');
+
+        // Event Listeners
+        document.querySelectorAll('[data-category]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('[data-category]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderSkills(btn.dataset.category);
+            });
+        });
+
+        document.querySelectorAll('[data-project]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('[data-project]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderProjects(btn.dataset.project);
+            });
+        });
+
+        document.getElementById('exp-tab').addEventListener('click', () => {
+            renderTimeline('experience');
+            updateTabStyles('exp-tab');
+        });
+
+        document.getElementById('edu-tab').addEventListener('click', () => {
+            renderTimeline('education');
+            updateTabStyles('edu-tab');
+        });
+
+        document.getElementById('download-cv')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('CV download will be available soon.');
+        });
+
+        document.getElementById('download-cv-2')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('CV download will be available soon.');
+        });
+
+        document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Message sent successfully!');
+            e.target.reset();
+        });
+    </script>
+</body>
+
+</html>
